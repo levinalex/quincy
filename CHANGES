@@ -1,0 +1,17 @@
+current
+  - Quincy::PCnet(nil) takes path from ENV
+  - rake test now runs tests with specrb
+  
+0.3.3
+  - Pathname() -> Pathname.new() (ruby 1.8.4)
+  - raise an Exception if no path is given explicitly or via the
+    Environment
+
+0.3.1
+  - changed package generation script to use Hoe
+  - changed unit tests to use test/spec
+  
+0.2.0
+  - Changed handling of Version Numbers (Quincy::VERSION::STRING)
+  - added "-V" switch
+
