@@ -1,9 +1,7 @@
-#! /usr/bin/ruby -w
+require 'quincy'
 
-require 'lib/quincy'
-
-context "With Patdat-Files in the current directory" do
-  setup do
+describe "With Patdat-Files in the current directory" do
+  before do
     @q = Quincy::PCnet.new('.')
   end
 
@@ -21,15 +19,15 @@ context "With Patdat-Files in the current directory" do
   end
 end
 
-context "generated path to the patdat files" do
+describe "generated path to the patdat files" do
   specify "absolute pahs should be preserved" do
     @q = Quincy::PCnet.new("/absolute/path")
     @q.path_for(300).should == "/absolute/path/PATDAT02/0300.DAT"
   end
 end
 
-context "reading of patients" do
-  setup do
+describe "reading of patients" do
+  before do
     @q = Quincy::PCnet.new( File.dirname(__FILE__) + "/sample")
   end
 
@@ -45,8 +43,8 @@ context "reading of patients" do
   end
 end
 
-context "when ENV['QUINCY'] is set" do
-  setup do
+describe "when ENV['QUINCY'] is set" do
+  before do
     ENV["QUINCY"] = "/some/path"
   end
 
@@ -60,8 +58,8 @@ context "when ENV['QUINCY'] is set" do
 
 end
 
-context "when ENV['QUINCY'] is not set" do
-  setup do
+describe "when ENV['QUINCY'] is not set" do
+  before do
     ENV["QUINCY"] = nil
   end
 

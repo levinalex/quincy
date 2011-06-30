@@ -1,7 +1,5 @@
 #!/usr/bin/env ruby
 
-$LOAD_PATH.unshift("../lib")
-
 require 'optparse'
 require 'quincy'
 
@@ -16,7 +14,7 @@ opts = OptionParser.new do |opts|
     quincy_path = arg 
   end
   opts.on "-V","--version","Display version and exit" do 
-    puts Quincy::VERSION::STRING
+    puts Quincy::VERSION
     exit
   end
   opts.on_tail("-h","--help","Show this Message") do 

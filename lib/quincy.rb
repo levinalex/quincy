@@ -4,12 +4,7 @@ require 'pathname'
 require 'iconv'
 
 module Quincy
-  module VERSION #:nodoc:
-    MAJOR = 0
-    MINOR = 3
-    TINY = 6
-    STRING = [MAJOR, MINOR, TINY].join('.')
-  end
+  VERSION = "0.4.0"
  
   # a Struct containing patient information
   #
