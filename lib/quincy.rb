@@ -4,8 +4,8 @@ require 'pathname'
 require 'iconv'
 
 module Quincy
-  VERSION = "0.4.0"
- 
+  VERSION = "0.4.1"
+
   # a Struct containing patient information
   #
   class Patient < Struct.new( :nr, :last_name, :first_name )
