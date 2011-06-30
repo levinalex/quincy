@@ -22,19 +22,19 @@ module Quincy
   #
   # Extracts patient information by reading the folder containing
   # the PATDATXX-subdirectories.
-  # 
+  #
   # Usage:
-  # 
+  #
   #   # find the patient with the number 98
   #   patient = Quincy::PCnet.new("/example/QUINCY").find(98)
-  # 
-  class PCnet  
+  #
+  class PCnet
     attr_reader :quincy_path
-    
+
     def initialize(path = nil)
       path ||= ENV["QUINCY"]
       @@blocksize = 1024
-      
+
       raise ArgumentError, "Quincy Path not set (use '-q' or ENV['QUINCY'])" unless path
       @quincy_path = Pathname.new(path)
     end
@@ -56,23 +56,23 @@ module Quincy
       return nil unless File.exists?(filename)
 
       filename.open { |f|
-        while (record = f.read(@@blocksize,"rb")) 
+        while (record = f.read(@@blocksize,"rb"))
           patient = read_record(record)
           return patient if patient and patient.nr == nr
         end
       }
     end
-    
+
     private
-    
+
     def read_record(record) #:nodoc:
       return unless record[4] == 0xf6
 
-      read_str = lambda { |pattern| lambda { |chunk| 
+      read_str = lambda { |pattern| lambda { |chunk|
         str = chunk.unpack(pattern).first.strip
         Iconv.new("UTF-8","CP850").iconv(str)
       }}
-      
+
       fields = {
         :nr         => lambda { |s| s.unpack("@10A5").first.to_i },
         :last_name  => read_str["@15A30"],
@@ -81,7 +81,7 @@ module Quincy
 
       pat = Patient.new
 
-      fields.each { |k,v| 
+      fields.each { |k,v|
         pat[k] = v.call(record)
       }
 
