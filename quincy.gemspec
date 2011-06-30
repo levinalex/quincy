@@ -18,7 +18,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/levinalex/quincy}
   s.rdoc_options = ["--charset=UTF-8"]
   s.require_paths = ["lib"]
-  s.summary = %q{Read patient data from QuincyPCnet data filed, <http://www.frey.de/q_pcnet.htm>}
+  s.summary = %q{extract patient data from QuincyPCnet data files, <http://www.frey.de/q_pcnet.htm>}
 
   s.add_dependency "rake"
   s.add_development_dependency "rspec"
