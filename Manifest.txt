@@ -1,9 +1,0 @@
-CHANGES
-Manifest.txt
-README.txt
-Rakefile
-bin/quincy
-lib/quincy.rb
-spec/sample/PATDAT00/0098.DAT
-spec/sample/PATDAT10/1317.DAT
-spec/test_quincy.rb

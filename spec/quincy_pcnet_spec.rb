@@ -1,4 +1,4 @@
-require 'quincy'
+require 'helper'
 
 describe "With Patdat-Files in the current directory" do
   before do

@@ -1,26 +1,21 @@
 # -*- encoding: utf-8 -*-
-$:.push File.expand_path("../lib", __FILE__)
-require 'quincy'
+require File.expand_path('../lib/quincy/version', __FILE__)
 
-Gem::Specification.new do |s|
-  s.name = %q{quincy}
-  s.version = Quincy::VERSION
+Gem::Specification.new do |gem|
+  gem.authors       = ["Levin Alexander"]
+  gem.email         = ["mail@levinalex.net"]
+  gem.description   = %q{}
+  gem.summary       = %q{extract data from Frey Quincy PCNet data files or QuincyWin}
+  gem.homepage      = "http://github.com/levinalex/quincy"
 
-  s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
-  s.authors = ["Levin Alexander"]
-  s.description = %q{}
-  s.email = %q{mail@levinalex.net}
+  gem.files         = `git ls-files`.split($\)
+  gem.executables   = gem.files.grep(%r{^bin/}).map{ |f| File.basename(f) }
+  gem.test_files    = gem.files.grep(%r{^(test|spec|features)/})
+  gem.name          = "quincy"
+  gem.require_paths = ["lib"]
+  gem.version       = Quincy::VERSION
 
-  s.files         = `git ls-files`.split("\n")
-  s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
-  s.executables   = `git ls-files -- bin/*`.split("\n").map{ |f| File.basename(f) }
-
-  s.homepage = %q{http://github.com/levinalex/quincy}
-  s.rdoc_options = ["--charset=UTF-8"]
-  s.require_paths = ["lib"]
-  s.summary = %q{extract patient data from QuincyPCnet data files, <http://www.frey.de/q_pcnet.htm>}
-
-  s.add_dependency "rake"
-  s.add_development_dependency "rspec"
+  gem.add_dependency "rake"
+  gem.add_development_dependency "rspec"
 end
 
