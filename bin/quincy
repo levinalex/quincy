@@ -8,18 +8,18 @@ USAGE = "usage: #{$0} PATNR"
 quincy_path = nil # defaults to ENV["QUINCY"]
 
 opts = OptionParser.new do |opts|
-  opts.on "-q", "--quincy-path PATHNAME", 
-          "Location of PATDAT directory", 
-          "Defaults to ENV[\"QUINCY\"]" do |arg| 
-    quincy_path = arg 
-  end
-  opts.on "-V","--version","Display version and exit" do 
+  opts.on "-q", "--quincy-path PATHNAME",
+    "Location of PATDAT directory",
+    "Defaults to ENV[\"QUINCY\"]" do |arg|
+    quincy_path = arg
+    end
+  opts.on "-V","--version","Display version and exit" do
     puts Quincy::VERSION
     exit
   end
-  opts.on_tail("-h","--help","Show this Message") do 
+  opts.on_tail("-h","--help","Show this Message") do
     puts opts
-    exit 
+    exit
   end
 
   opts.parse!
@@ -37,7 +37,7 @@ begin
     puts pat if pat
   }
 rescue Exception => e
- warn e.message
- exit 1
+  warn e.message
+  exit 1
 end
 
