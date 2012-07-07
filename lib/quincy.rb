@@ -1,7 +1,7 @@
 #! /usr/bin/ruby
 
 require 'pathname'
-require 'iconv'
+require 'iconv' unless defined?(Encoding)
 
 module Quincy
   VERSION = "0.4.1"
@@ -48,15 +48,15 @@ module Quincy
       dat_nr = nr % 0xa00
       dir_nr = dat_nr / 0x80
       patdat_path = @quincy_path + "PATDAT#{"%02d" % dir_nr}" + "#{"%04d"% dat_nr}.DAT"
-      patdat_path.to_str
+      patdat_path.to_s
     end
 
     def find(nr)
       filename = Pathname.new(path_for(nr))
       return nil unless File.exists?(filename)
 
-      filename.open { |f|
-        while (record = f.read(@@blocksize,"rb"))
+      File.open(filename, "rb:binary") { |f|
+        while (record = f.read(@@blocksize))
           patient = read_record(record)
           return patient if patient and patient.nr == nr
         end
@@ -66,11 +66,13 @@ module Quincy
     private
 
     def read_record(record) #:nodoc:
-      return unless record[4] == 0xf6
+      return unless record[4] == "\xf6"[0]
 
       read_str = lambda { |pattern| lambda { |chunk|
         str = chunk.unpack(pattern).first.strip
-        Iconv.new("UTF-8","CP850").iconv(str)
+        str = Iconv.new("UTF-8","CP850").iconv(str) if defined?(Iconv)
+        str = str.force_encoding("cp850").encode("utf-8") if defined?(Encoding)
+        str
       }}
 
       fields = {
