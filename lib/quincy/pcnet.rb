@@ -13,9 +13,9 @@ module Quincy
 
     # a Struct containing patient information
     #
-    class Patient < Struct.new( :nr, :last_name, :first_name )
+    class Patient < Struct.new( :number, :last_name, :first_name )
       def to_s
-        "#{"%6d"%nr}: #{name}"
+        "#{"%6d"%number}: #{name}"
       end
 
       def name
@@ -33,26 +33,26 @@ module Quincy
       @quincy_path = Pathname.new(path)
     end
 
-    # returns the PATDAT-file for a given patient nr
+    # returns the PATDAT-file for a given patient number
     #
     #   path = Quincy::PCnet.new("foo").path_for("98")
     #   #=> "foo/PATDAT00/0098.DAT"
     #
-    def path_for(nr)
-      dat_nr = nr % 0xa00
-      dir_nr = dat_nr / 0x80
-      patdat_path = @quincy_path + "PATDAT#{"%02d" % dir_nr}" + "#{"%04d"% dat_nr}.DAT"
+    def path_for(number)
+      dat_number = number % 0xa00
+      dir_number = dat_number / 0x80
+      patdat_path = @quincy_path + "PATDAT#{"%02d" % dir_number}" + "#{"%04d"% dat_number}.DAT"
       patdat_path.to_s
     end
 
-    def find(nr)
-      filename = Pathname.new(path_for(nr))
+    def find(number)
+      filename = Pathname.new(path_for(number))
       return nil unless File.exists?(filename)
 
       File.open(filename, "rb:binary") { |f|
         while (record = f.read(@@blocksize))
           patient = read_record(record)
-          return patient if patient and patient.nr == nr
+          return patient if patient and patient.number == number
         end
       }
     end
@@ -70,9 +70,9 @@ module Quincy
       }}
 
       fields = {
-        :nr         => lambda { |s| s.unpack("@10A5").first.to_i },
+        :number     => lambda { |s| s.unpack("@10A5").first.to_i },
         :last_name  => read_str["@15A30"],
-        :first_name  => read_str["@45A30"]
+        :first_name => read_str["@45A30"]
       }
 
       pat = Patient.new

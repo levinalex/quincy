@@ -34,7 +34,7 @@ describe "reading of patients" do
   specify "name of patient 98 should be Sierra, Rudolph" do
     patient = @q.find(98)
     patient.name.should == ("Sierra, Rudolph")
-    patient.nr.should be_equal(98)
+    patient.number.should be_equal(98)
   end
 
   specify "searching for nonexistent patient should return nil" do

@@ -32,9 +32,11 @@ end
 
 begin
   ARGV.each { |i|
-    patnr = Integer(i)
-    pat = Quincy::PCnet.new(quincy_path).find(patnr)
+    patid = Integer(i)
+    pat = Quincy::PCnet.new(quincy_path).find(patid)
     puts pat if pat
+
+    exit -1 unless pat
   }
 rescue Exception => e
   warn e.message
