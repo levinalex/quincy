@@ -4,7 +4,7 @@ require 'pathname'
 require 'iconv' unless defined?(Encoding)
 
 module Quincy
-  VERSION = "0.4.1"
+  VERSION = "0.4.2"
 
   # a Struct containing patient information
   #
