@@ -28,7 +28,7 @@ end
 
 describe "reading of patients" do
   before do
-    @q = Quincy::PCnet.new( File.dirname(__FILE__) + "/sample")
+    @q = Quincy::PCnet.new( File.dirname(__FILE__) + "/fixtures/pcnet")
   end
 
   specify "name of patient 98 should be Sierra, Rudolph" do
